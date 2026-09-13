@@ -1,4 +1,5 @@
 import { Image, Pressable, Text, View } from "react-native";
+import { router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { images } from "@/constants/images";
@@ -85,6 +86,7 @@ export default function OnboardingScreen() {
         </View>
 
         <Pressable
+          onPress={() => router.push("/sign-up")}
           className="mb-6 flex-row items-center rounded-full bg-lingua-purple px-6 py-[18px]"
           style={({ pressed }) => ({ opacity: pressed ? 0.92 : 1 })}
         >
