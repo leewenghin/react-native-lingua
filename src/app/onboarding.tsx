@@ -6,26 +6,42 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { images } from "@/constants/images";
 import { colors } from "@/theme";
 
+type SpeechBubbleVariant = "blue" | "purple" | "peach";
+
+const SPEECH_BUBBLE_CLASSES: Record<
+  SpeechBubbleVariant,
+  { container: string; text: string }
+> = {
+  blue: {
+    container: "bg-speech-blue",
+    text: "text-text-primary",
+  },
+  purple: {
+    container: "bg-speech-purple",
+    text: "text-lingua-purple",
+  },
+  peach: {
+    container: "bg-speech-peach",
+    text: "text-speech-red",
+  },
+};
+
 function SpeechBubble({
   label,
-  backgroundColor,
-  textColor,
+  variant,
   className,
 }: {
   label: string;
-  backgroundColor: string;
-  textColor: string;
+  variant: SpeechBubbleVariant;
   className?: string;
 }) {
+  const styles = SPEECH_BUBBLE_CLASSES[variant];
+
   return (
     <View
-      className={`absolute rounded-2xl px-4 py-2 ${className ?? ""}`}
-      style={{ backgroundColor }}
+      className={`absolute rounded-2xl px-4 py-2 ${styles.container} ${className ?? ""}`}
     >
-      <Text
-        className="body-text--medium"
-        style={{ color: textColor, fontFamily: "Poppins-SemiBold" }}
-      >
+      <Text className={`body-text--medium font-poppins-semibold ${styles.text}`}>
         {label}
       </Text>
     </View>
@@ -40,7 +56,7 @@ export default function OnboardingScreen() {
   }
 
   if (isSignedIn) {
-    return <Redirect href="/index" />;
+    return <Redirect href="/(tabs)" />;
   }
 
   return (
@@ -52,10 +68,7 @@ export default function OnboardingScreen() {
             className="h-8 w-8"
             resizeMode="contain"
           />
-          <Text
-            className="text-[20px] text-text-primary"
-            style={{ fontFamily: "Poppins-Bold" }}
-          >
+          <Text className="text-[20px] font-poppins-bold text-text-primary">
             lingua
           </Text>
         </View>
@@ -72,20 +85,17 @@ export default function OnboardingScreen() {
           <View className="relative h-[340px] w-full items-center justify-center">
             <SpeechBubble
               label="Hello!"
-              backgroundColor="#E3EEFF"
-              textColor={colors.textPrimary}
+              variant="blue"
               className="left-2 top-6"
             />
             <SpeechBubble
               label="¡Hola!"
-              backgroundColor="#E8E0FF"
-              textColor={colors.linguaPurple}
+              variant="purple"
               className="right-0 top-2"
             />
             <SpeechBubble
               label="你好!"
-              backgroundColor="#FFE5D9"
-              textColor="#E53935"
+              variant="peach"
               className="right-4 top-[42%]"
             />
             <Image
@@ -102,19 +112,11 @@ export default function OnboardingScreen() {
           style={({ pressed }) => ({ opacity: pressed ? 0.92 : 1 })}
         >
           <View className="flex-1" />
-          <Text
-            className="text-[16px] text-white"
-            style={{ fontFamily: "Poppins-Bold" }}
-          >
+          <Text className="text-[16px] font-poppins-bold text-white">
             Get Started
           </Text>
           <View className="flex-1 items-end">
-            <Text
-              className="text-[18px] text-white"
-              style={{ fontFamily: "Poppins-Bold" }}
-            >
-              ›
-            </Text>
+            <Text className="text-[18px] font-poppins-bold text-white">›</Text>
           </View>
         </Pressable>
       </View>

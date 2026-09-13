@@ -19,13 +19,12 @@ export function LanguageListItem({
   return (
     <Pressable
       onPress={onPress}
-      className="mb-3 flex-row items-center rounded-2xl px-4 py-3"
-      style={({ pressed }) => ({
-        backgroundColor: isSelected ? "#F3EEFF" : colors.background,
-        borderWidth: isSelected ? 1.5 : 1,
-        borderColor: isSelected ? colors.linguaPurple : colors.border,
-        opacity: pressed ? 0.92 : 1,
-      })}
+      className={`mb-3 flex-row items-center rounded-2xl border px-4 py-3 ${
+        isSelected
+          ? "border-[1.5px] border-lingua-purple bg-language-selected"
+          : "border-border bg-background"
+      }`}
+      style={({ pressed }) => ({ opacity: pressed ? 0.92 : 1 })}
     >
       <Image
         source={{ uri: getFlagUrl(language.flagCode, 80) }}
@@ -34,10 +33,7 @@ export function LanguageListItem({
       />
 
       <View className="ml-3 flex-1">
-        <Text
-          className="text-[16px] text-text-primary"
-          style={{ fontFamily: "Poppins-SemiBold" }}
-        >
+        <Text className="text-[16px] font-poppins-semibold text-text-primary">
           {language.name}
         </Text>
         <Text className="body-text--small mt-0.5 text-text-secondary">
@@ -46,41 +42,31 @@ export function LanguageListItem({
       </View>
 
       {isSelected ? (
-        <View
-          className="h-7 w-7 items-center justify-center rounded-full bg-lingua-purple"
-        >
+        <View className="h-7 w-7 items-center justify-center rounded-full bg-lingua-purple">
           {process.env.EXPO_OS === "ios" ? (
             <SymbolView
               name="checkmark"
               tintColor={colors.background}
               resizeMode="scaleAspectFit"
-              style={{ width: 14, height: 14 }}
+              className="h-3.5 w-3.5"
             />
           ) : (
-            <Text
-              className="text-[14px] text-white"
-              style={{ fontFamily: "Poppins-Bold", lineHeight: 16 }}
-            >
+            <Text className="text-[14px] leading-4 font-poppins-bold text-white">
               ✓
             </Text>
           )}
         </View>
+      ) : process.env.EXPO_OS === "ios" ? (
+        <SymbolView
+          name="chevron.right"
+          tintColor={colors.textSecondary}
+          resizeMode="scaleAspectFit"
+          className="h-3.5 w-3.5"
+        />
       ) : (
-        process.env.EXPO_OS === "ios" ? (
-          <SymbolView
-            name="chevron.right"
-            tintColor={colors.textSecondary}
-            resizeMode="scaleAspectFit"
-            style={{ width: 14, height: 14 }}
-          />
-        ) : (
-          <Text
-            className="text-[20px] text-text-secondary"
-            style={{ fontFamily: "Poppins-Regular", lineHeight: 20 }}
-          >
-            ›
-          </Text>
-        )
+        <Text className="text-[20px] leading-5 font-poppins-regular text-text-secondary">
+          ›
+        </Text>
       )}
     </Pressable>
   );

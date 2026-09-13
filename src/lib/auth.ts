@@ -1,7 +1,7 @@
 import { router } from "expo-router";
 
 export function navigateToHome() {
-  router.replace("/index");
+  router.replace("/(tabs)");
 }
 
 export function getFieldError(

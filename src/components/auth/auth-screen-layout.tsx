@@ -38,13 +38,10 @@ function BackButton() {
           name="chevron.left"
           tintColor={colors.textPrimary}
           resizeMode="scaleAspectFit"
-          style={{ width: 20, height: 20 }}
+          className="h-5 w-5"
         />
       ) : (
-        <Text
-          className="text-[28px] text-text-primary"
-          style={{ fontFamily: "Poppins-Regular", lineHeight: 28 }}
-        >
+        <Text className="text-[28px] leading-7 font-poppins-regular text-text-primary">
           ‹
         </Text>
       )}
@@ -84,10 +81,7 @@ export function AuthScreenLayout({
       >
         <BackButton />
 
-        <Text
-          className="text-[28px] text-text-primary"
-          style={{ fontFamily: "Poppins-Bold" }}
-        >
+        <Text className="text-[28px] font-poppins-bold text-text-primary">
           {title}
         </Text>
         <Text className="body-text--medium mt-2 text-text-secondary">
@@ -112,10 +106,7 @@ export function AuthScreenLayout({
             opacity: isSubmitting ? 0.7 : pressed ? 0.92 : 1,
           })}
         >
-          <Text
-            className="text-center text-[16px] text-white"
-            style={{ fontFamily: "Poppins-Bold" }}
-          >
+          <Text className="text-center text-[16px] font-poppins-bold text-white">
             {primaryButtonLabel}
           </Text>
         </Pressable>
@@ -130,10 +121,7 @@ export function AuthScreenLayout({
           </Text>
           <Link href={footerHref} asChild>
             <Pressable hitSlop={8}>
-              <Text
-                className="body-text--medium text-lingua-purple"
-                style={{ fontFamily: "Poppins-SemiBold" }}
-              >
+              <Text className="body-text--medium font-poppins-semibold text-lingua-purple">
                 {footerLinkText}
               </Text>
             </Pressable>

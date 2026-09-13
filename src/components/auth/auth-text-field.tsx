@@ -21,7 +21,7 @@ function EyeIcon({ visible }: { visible: boolean }) {
         name={visible ? "eye.slash" : "eye"}
         tintColor={colors.textSecondary}
         resizeMode="scaleAspectFit"
-        style={{ width: 20, height: 20 }}
+        className="h-5 w-5"
       />
     );
   }
@@ -92,8 +92,7 @@ export function AuthTextField({
           keyboardType={keyboardType}
           autoCapitalize={autoCapitalize}
           autoCorrect={false}
-          className="flex-1 text-[16px] text-text-primary"
-          style={{ fontFamily: "Poppins-Regular", paddingVertical: 0 }}
+          className="flex-1 py-0 text-[16px] font-poppins-regular text-text-primary"
         />
         {secureTextEntry ? (
           <Pressable

@@ -32,6 +32,19 @@
   --color-border: #e5e7eb;
   --color-surface: #f6f7fb;
   --color-background: #ffffff;
+  --color-daily-goal: #fff4e8;
+  --color-daily-goal-track: #f8dcc6;
+  --color-language-selected: #f3eeff;
+  --color-plan-purple-surface: #f1ebff;
+  --color-plan-words-surface: #ffe8e8;
+  --color-words-accent: #ff6b6b;
+  --color-speech-blue: #e3eeff;
+  --color-speech-purple: #e8e0ff;
+  --color-speech-peach: #ffe5d9;
+  --color-speech-red: #e53935;
+  --color-facebook: #1877f2;
+  --color-google: #4285f4;
+  --color-overlay: rgba(13, 19, 43, 0.45);
 
   /* Type scale — size + line-height from the design sheet */
   --text-h1: 32px;
@@ -110,4 +123,20 @@
   font-size: 11px;
   line-height: 1.4;
   color: var(--color-text-secondary);
+}
+
+@utility font-poppins-regular {
+  font-family: "Poppins-Regular";
+}
+
+@utility font-poppins-medium {
+  font-family: "Poppins-Medium";
+}
+
+@utility font-poppins-semibold {
+  font-family: "Poppins-SemiBold";
+}
+
+@utility font-poppins-bold {
+  font-family: "Poppins-Bold";
 }

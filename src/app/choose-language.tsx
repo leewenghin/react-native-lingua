@@ -31,13 +31,10 @@ function BackButton() {
           name="chevron.left"
           tintColor={colors.textPrimary}
           resizeMode="scaleAspectFit"
-          style={{ width: 20, height: 20 }}
+          className="h-5 w-5"
         />
       ) : (
-        <Text
-          className="text-[28px] text-text-primary"
-          style={{ fontFamily: "Poppins-Regular", lineHeight: 28 }}
-        >
+        <Text className="text-[28px] leading-7 font-poppins-regular text-text-primary">
           ‹
         </Text>
       )}
@@ -72,7 +69,7 @@ export default function ChooseLanguageScreen() {
 
   const handleContinue = () => {
     setSelectedLanguage(selectedCode);
-    router.replace("/index");
+    router.replace("/(tabs)");
   };
 
   return (
@@ -83,10 +80,7 @@ export default function ChooseLanguageScreen() {
             <View className="absolute left-0">
               <BackButton />
             </View>
-            <Text
-              className="text-[18px] text-text-primary"
-              style={{ fontFamily: "Poppins-Bold" }}
-            >
+            <Text className="text-[18px] font-poppins-bold text-text-primary">
               Choose a language
             </Text>
           </View>
@@ -97,13 +91,10 @@ export default function ChooseLanguageScreen() {
                 name="magnifyingglass"
                 tintColor={colors.textSecondary}
                 resizeMode="scaleAspectFit"
-                style={{ width: 18, height: 18 }}
+                className="h-[18px] w-[18px]"
               />
             ) : (
-              <Text
-                className="text-[16px] text-text-secondary"
-                style={{ fontFamily: "Poppins-Regular" }}
-              >
+              <Text className="text-[16px] font-poppins-regular text-text-secondary">
                 ⌕
               </Text>
             )}
@@ -112,18 +103,14 @@ export default function ChooseLanguageScreen() {
               onChangeText={setSearchQuery}
               placeholder="Search languages"
               placeholderTextColor={colors.textSecondary}
-              className="ml-3 flex-1 py-0 text-[14px] text-text-primary"
-              style={{ fontFamily: "Poppins-Regular" }}
+              className="ml-3 flex-1 py-0 text-[14px] font-poppins-regular text-text-primary"
               autoCapitalize="none"
               autoCorrect={false}
               clearButtonMode="while-editing"
             />
           </View>
 
-          <Text
-            className="mt-6 text-[16px] text-text-primary"
-            style={{ fontFamily: "Poppins-Bold" }}
-          >
+          <Text className="mt-6 text-[16px] font-poppins-bold text-text-primary">
             Popular
           </Text>
         </View>
@@ -154,25 +141,20 @@ export default function ChooseLanguageScreen() {
                 elevation: 2,
               })}
             >
-              <Text
-                className="text-center text-[16px] text-white"
-                style={{ fontFamily: "Poppins-Bold" }}
-              >
+              <Text className="text-center text-[16px] font-poppins-bold text-white">
                 Continue
               </Text>
             </Pressable>
           </View>
 
           <View
-            className="mt-4 w-full overflow-hidden"
-            style={{ height: 148 }}
+            className="mt-4 h-[148px] w-full overflow-hidden"
             pointerEvents="none"
           >
             <Image
               source={images.earth}
-              className="w-full"
+              className="h-40 w-full"
               style={{
-                height: 160,
                 transform: [{ scaleX: 2.05 }, { scaleY: 1.65 }],
               }}
               resizeMode="contain"

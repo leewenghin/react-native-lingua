@@ -31,7 +31,7 @@ export default function SignUpScreen() {
   }
 
   if (isSignedIn) {
-    return <Redirect href="/index" />;
+    return <Redirect href="/(tabs)" />;
   }
 
   const trimmedEmail = email.trim();

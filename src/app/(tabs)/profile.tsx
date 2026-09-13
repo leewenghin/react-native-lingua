@@ -34,16 +34,10 @@ export default function ProfileScreen() {
             resizeMode="cover"
           />
           <View className="ml-3">
-            <Text
-              className="text-[14px] text-text-secondary"
-              style={{ fontFamily: "Poppins-Medium" }}
-            >
+            <Text className="text-[14px] font-poppins-medium text-text-secondary">
               Learning
             </Text>
-            <Text
-              className="text-[16px] text-text-primary"
-              style={{ fontFamily: "Poppins-SemiBold" }}
-            >
+            <Text className="text-[16px] font-poppins-semibold text-text-primary">
               {selectedLanguage.name}
             </Text>
           </View>
@@ -55,10 +49,7 @@ export default function ProfileScreen() {
         className="mt-6 w-full rounded-full bg-lingua-purple px-8 py-4"
         style={({ pressed }) => ({ opacity: pressed ? 0.92 : 1 })}
       >
-        <Text
-          className="text-center text-[16px] text-white"
-          style={{ fontFamily: "Poppins-Bold" }}
-        >
+        <Text className="text-center text-[16px] font-poppins-bold text-white">
           Change Language
         </Text>
       </Pressable>
@@ -71,10 +62,7 @@ export default function ProfileScreen() {
         className="mt-4 w-full rounded-full border border-border bg-white px-8 py-4"
         style={({ pressed }) => ({ opacity: pressed ? 0.92 : 1 })}
       >
-        <Text
-          className="text-center text-[16px] text-text-primary"
-          style={{ fontFamily: "Poppins-Bold" }}
-        >
+        <Text className="text-center text-[16px] font-poppins-bold text-text-primary">
           Clear Language Storage
         </Text>
       </Pressable>
@@ -84,10 +72,7 @@ export default function ProfileScreen() {
         className="mt-4 w-full rounded-full border border-border bg-white px-8 py-4"
         style={({ pressed }) => ({ opacity: pressed ? 0.92 : 1 })}
       >
-        <Text
-          className="text-center text-[16px] text-text-primary"
-          style={{ fontFamily: "Poppins-Bold" }}
-        >
+        <Text className="text-center text-[16px] font-poppins-bold text-text-primary">
           Sign Out
         </Text>
       </Pressable>

@@ -81,31 +81,21 @@ export function VerificationModal({
       onRequestClose={resetAndClose}
     >
       <KeyboardAvoidingView
-        style={{ flex: 1 }}
+        className="flex-1"
         behavior={process.env.EXPO_OS === "ios" ? "padding" : "height"}
       >
         <Pressable
-          style={{ flex: 1, backgroundColor: "rgba(13, 19, 43, 0.45)" }}
+          className="flex-1 bg-overlay"
           onPress={resetAndClose}
         />
 
         <Pressable
           onPress={() => inputRef.current?.focus()}
-          style={{
-            backgroundColor: colors.background,
-            borderTopLeftRadius: 24,
-            borderTopRightRadius: 24,
-            paddingHorizontal: 24,
-            paddingTop: 24,
-            paddingBottom: 32,
-          }}
+          className="rounded-t-3xl bg-background px-6 pb-8 pt-6"
         >
           <View className="mb-2 h-1 w-10 self-center rounded-full bg-border" />
 
-          <Text
-            className="text-[24px] text-text-primary"
-            style={{ fontFamily: "Poppins-Bold" }}
-          >
+          <Text className="text-[24px] font-poppins-bold text-text-primary">
             Verify your email
           </Text>
           <Text className="body-text--medium mt-2 text-text-secondary">
@@ -124,15 +114,11 @@ export function VerificationModal({
               return (
                 <View
                   key={index}
-                  className="h-14 flex-1 items-center justify-center rounded-2xl border bg-surface"
-                  style={{
-                    borderColor: isActive ? colors.linguaPurple : colors.border,
-                  }}
+                  className={`h-14 flex-1 items-center justify-center rounded-2xl border bg-surface ${
+                    isActive ? "border-lingua-purple" : "border-border"
+                  }`}
                 >
-                  <Text
-                    className="text-[24px] text-text-primary"
-                    style={{ fontFamily: "Poppins-SemiBold" }}
-                  >
+                  <Text className="text-[24px] font-poppins-semibold text-text-primary">
                     {digit}
                   </Text>
                 </View>
@@ -154,12 +140,7 @@ export function VerificationModal({
             maxLength={CODE_LENGTH}
             caretHidden
             editable={!isVerifying}
-            style={{
-              position: "absolute",
-              opacity: 0,
-              height: 1,
-              width: 1,
-            }}
+            className="absolute h-px w-px opacity-0"
           />
         </Pressable>
       </KeyboardAvoidingView>

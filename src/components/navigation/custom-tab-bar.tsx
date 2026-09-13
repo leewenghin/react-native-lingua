@@ -1,4 +1,3 @@
-import type { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import { SymbolView } from "expo-symbols";
 import type { SymbolViewProps } from "expo-symbols";
 import { useEffect } from "react";
@@ -43,11 +42,13 @@ function TabIcon({
   androidIcon,
   color,
   size = 22,
+  className,
 }: {
   icon: TabIconName;
   androidIcon: string;
   color: string;
   size?: number;
+  className?: string;
 }) {
   if (process.env.EXPO_OS === "ios") {
     return (
@@ -55,17 +56,34 @@ function TabIcon({
         name={icon}
         tintColor={color}
         resizeMode="scaleAspectFit"
-        style={{ width: size, height: size }}
+        className={size === 22 ? "h-[22px] w-[22px]" : "h-5 w-5"}
       />
     );
   }
 
   return (
-    <Text style={{ color, fontSize: size, lineHeight: size }}>{androidIcon}</Text>
+    <Text className={className} style={{ color, fontSize: size, lineHeight: size }}>
+      {androidIcon}
+    </Text>
   );
 }
 
-export function CustomTabBar({ state, navigation }: BottomTabBarProps) {
+type CustomTabBarProps = {
+  state: {
+    index: number;
+    routes: { key: string; name: string }[];
+  };
+  navigation: {
+    emit: (event: {
+      type: "tabPress";
+      target: string;
+      canPreventDefault: true;
+    }) => { defaultPrevented: boolean };
+    navigate: (name: string) => void;
+  };
+};
+
+export function CustomTabBar({ state, navigation }: CustomTabBarProps) {
   const insets = useSafeAreaInsets();
   const { width } = useWindowDimensions();
   const tabWidth = width / state.routes.length;
@@ -95,17 +113,8 @@ export function CustomTabBar({ state, navigation }: BottomTabBarProps) {
       <View className="relative h-16 flex-row items-center">
         <Animated.View
           pointerEvents="none"
-          style={[
-            indicatorStyle,
-            {
-              position: "absolute",
-              top: 8,
-              width: INDICATOR_SIZE,
-              height: INDICATOR_SIZE,
-              borderRadius: INDICATOR_SIZE / 2,
-              backgroundColor: colors.linguaPurple,
-            },
-          ]}
+          className="absolute top-2 h-12 w-12 rounded-full bg-lingua-purple"
+          style={indicatorStyle}
         />
 
         {state.routes.map((route, index) => {
@@ -134,10 +143,7 @@ export function CustomTabBar({ state, navigation }: BottomTabBarProps) {
               style={({ pressed }) => ({ opacity: pressed ? 0.85 : 1 })}
             >
               {isFocused ? (
-                <View
-                  className="items-center justify-center"
-                  style={{ width: INDICATOR_SIZE, height: INDICATOR_SIZE }}
-                >
+                <View className="h-12 w-12 items-center justify-center">
                   <TabIcon
                     icon={config.icon}
                     androidIcon={config.androidIcon}
@@ -152,6 +158,7 @@ export function CustomTabBar({ state, navigation }: BottomTabBarProps) {
                     androidIcon={config.androidIcon}
                     color={colors.textSecondary}
                     size={20}
+                    className="font-poppins-regular text-text-secondary"
                   />
                   <Text className="caption mt-1">{config.label}</Text>
                 </View>

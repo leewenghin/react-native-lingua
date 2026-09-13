@@ -18,34 +18,15 @@ const STRATEGY_BY_PROVIDER = {
 function GoogleIcon() {
   return (
     <View className="h-5 w-5 items-center justify-center">
-      <Text
-        style={{
-          fontFamily: "Poppins-Bold",
-          fontSize: 16,
-          color: "#4285F4",
-        }}
-      >
-        G
-      </Text>
+      <Text className="text-[16px] font-poppins-bold text-google">G</Text>
     </View>
   );
 }
 
 function FacebookIcon() {
   return (
-    <View
-      className="h-5 w-5 items-center justify-center rounded-full"
-      style={{ backgroundColor: "#1877F2" }}
-    >
-      <Text
-        style={{
-          fontFamily: "Poppins-Bold",
-          fontSize: 13,
-          color: "#FFFFFF",
-        }}
-      >
-        f
-      </Text>
+    <View className="h-5 w-5 items-center justify-center rounded-full bg-facebook">
+      <Text className="text-[13px] font-poppins-bold text-white">f</Text>
     </View>
   );
 }
@@ -57,20 +38,13 @@ function AppleIcon() {
         name="apple.logo"
         tintColor={colors.textPrimary}
         resizeMode="scaleAspectFit"
-        style={{ width: 18, height: 18 }}
+        className="h-[18px] w-[18px]"
       />
     );
   }
 
   return (
-    <Text
-      style={{
-        fontFamily: "Poppins-Bold",
-        fontSize: 16,
-        color: colors.textPrimary,
-        lineHeight: 18,
-      }}
-    >
+    <Text className="text-[16px] leading-[18px] font-poppins-bold text-text-primary">
       A
     </Text>
   );
@@ -101,10 +75,7 @@ function SocialButton({
       })}
     >
       <View className="absolute left-5">{icon}</View>
-      <Text
-        className="text-[15px] text-text-primary"
-        style={{ fontFamily: "Poppins-Medium" }}
-      >
+      <Text className="text-[15px] font-poppins-medium text-text-primary">
         {label}
       </Text>
     </Pressable>
