@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import {
+  ActivityIndicator,
   Keyboard,
   KeyboardAvoidingView,
   Modal,
@@ -8,18 +9,26 @@ import {
   TextInput,
   View,
 } from "react-native";
-import { router } from "expo-router";
 
 import { colors } from "@/theme";
 
 type VerificationModalProps = {
   visible: boolean;
   onClose: () => void;
+  onVerifyCode: (code: string) => boolean | Promise<boolean>;
+  error?: string | null;
+  isVerifying?: boolean;
 };
 
 const CODE_LENGTH = 6;
 
-export function VerificationModal({ visible, onClose }: VerificationModalProps) {
+export function VerificationModal({
+  visible,
+  onClose,
+  onVerifyCode,
+  error = null,
+  isVerifying = false,
+}: VerificationModalProps) {
   const [code, setCode] = useState("");
   const inputRef = useRef<TextInput>(null);
 
@@ -42,15 +51,25 @@ export function VerificationModal({ visible, onClose }: VerificationModalProps) 
   };
 
   const handleChange = (text: string) => {
+    if (isVerifying) {
+      return;
+    }
+
     const digits = text.replace(/\D/g, "").slice(0, CODE_LENGTH);
     setCode(digits);
 
     if (digits.length === CODE_LENGTH) {
       inputRef.current?.blur();
       Keyboard.dismiss();
-      setCode("");
-      onClose();
-      router.replace("/");
+
+      void (async () => {
+        const success = await onVerifyCode(digits);
+
+        if (!success) {
+          setCode("");
+          inputRef.current?.focus();
+        }
+      })();
     }
   };
 
@@ -93,6 +112,9 @@ export function VerificationModal({ visible, onClose }: VerificationModalProps) 
             We&apos;ve sent a verification code to your email. Enter the 6-digit
             code to continue.
           </Text>
+          {error ? (
+            <Text className="body-text--small mt-2 text-red-500">{error}</Text>
+          ) : null}
 
           <View className="mt-8 flex-row justify-between gap-2">
             {Array.from({ length: CODE_LENGTH }).map((_, index) => {
@@ -118,6 +140,12 @@ export function VerificationModal({ visible, onClose }: VerificationModalProps) 
             })}
           </View>
 
+          {isVerifying ? (
+            <View className="mt-6 items-center">
+              <ActivityIndicator color={colors.linguaPurple} />
+            </View>
+          ) : null}
+
           <TextInput
             ref={inputRef}
             value={code}
@@ -125,6 +153,7 @@ export function VerificationModal({ visible, onClose }: VerificationModalProps) 
             keyboardType="number-pad"
             maxLength={CODE_LENGTH}
             caretHidden
+            editable={!isVerifying}
             style={{
               position: "absolute",
               opacity: 0,

@@ -1,5 +1,6 @@
+import { useAuth } from "@clerk/expo";
 import { Image, Pressable, Text, View } from "react-native";
-import { router } from "expo-router";
+import { Redirect, router } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { images } from "@/constants/images";
@@ -32,6 +33,16 @@ function SpeechBubble({
 }
 
 export default function OnboardingScreen() {
+  const { isLoaded, isSignedIn } = useAuth();
+
+  if (!isLoaded) {
+    return null;
+  }
+
+  if (isSignedIn) {
+    return <Redirect href="/" />;
+  }
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: colors.background }}>
       <View className="flex-1 bg-background px-6">

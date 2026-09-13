@@ -16,9 +16,12 @@ type AuthScreenLayoutProps = {
   footerLinkText: string;
   footerHref: "/sign-in" | "/sign-up";
   showVerification: boolean;
+  isSubmitting?: boolean;
   onPrimaryPress: () => void;
   onCloseVerification: () => void;
-  onSocialPress: () => void;
+  onVerifyCode: (code: string) => boolean | Promise<boolean>;
+  verificationError?: string | null;
+  isVerifying?: boolean;
   children: ReactNode;
 };
 
@@ -57,19 +60,17 @@ export function AuthScreenLayout({
   footerLinkText,
   footerHref,
   showVerification,
+  isSubmitting = false,
   onPrimaryPress,
   onCloseVerification,
-  onSocialPress,
+  onVerifyCode,
+  verificationError = null,
+  isVerifying = false,
   children,
 }: AuthScreenLayoutProps) {
   const openVerification = () => {
     Keyboard.dismiss();
     onPrimaryPress();
-  };
-
-  const openSocialVerification = () => {
-    Keyboard.dismiss();
-    onSocialPress();
   };
 
   return (
@@ -105,8 +106,11 @@ export function AuthScreenLayout({
 
         <Pressable
           onPress={openVerification}
+          disabled={isSubmitting}
           className="mt-6 rounded-full bg-lingua-purple py-[18px]"
-          style={({ pressed }) => ({ opacity: pressed ? 0.92 : 1 })}
+          style={({ pressed }) => ({
+            opacity: isSubmitting ? 0.7 : pressed ? 0.92 : 1,
+          })}
         >
           <Text
             className="text-center text-[16px] text-white"
@@ -117,7 +121,7 @@ export function AuthScreenLayout({
         </Pressable>
 
         <View className="mt-6">
-          <SocialAuthButtons onPress={openSocialVerification} />
+          <SocialAuthButtons disabled={isSubmitting || isVerifying} />
         </View>
 
         <View className="mt-8 flex-row items-center justify-center">
@@ -140,6 +144,9 @@ export function AuthScreenLayout({
       <VerificationModal
         visible={showVerification}
         onClose={onCloseVerification}
+        onVerifyCode={onVerifyCode}
+        error={verificationError}
+        isVerifying={isVerifying}
       />
     </>
   );
