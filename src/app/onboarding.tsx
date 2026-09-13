@@ -40,7 +40,7 @@ export default function OnboardingScreen() {
   }
 
   if (isSignedIn) {
-    return <Redirect href="/" />;
+    return <Redirect href="/index" />;
   }
 
   return (

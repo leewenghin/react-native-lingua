@@ -14,6 +14,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { LanguageListItem } from "@/components/language/language-list-item";
 import { images } from "@/constants/images";
 import { languages } from "@/data/languages";
+import { useLanguageStore } from "@/store/language-store";
 import { colors } from "@/theme";
 import type { LanguageCode } from "@/types/learning";
 
@@ -45,8 +46,15 @@ function BackButton() {
 }
 
 export default function ChooseLanguageScreen() {
+  const storedLanguageCode = useLanguageStore(
+    (state) => state.selectedLanguageCode,
+  );
+  const setSelectedLanguage = useLanguageStore(
+    (state) => state.setSelectedLanguage,
+  );
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCode, setSelectedCode] = useState<LanguageCode>("es");
+  const [draftCode, setDraftCode] = useState<LanguageCode | null>(null);
+  const selectedCode = draftCode ?? storedLanguageCode ?? "es";
 
   const filteredLanguages = useMemo(() => {
     const query = searchQuery.trim().toLowerCase();
@@ -63,7 +71,8 @@ export default function ChooseLanguageScreen() {
   }, [searchQuery]);
 
   const handleContinue = () => {
-    router.back();
+    setSelectedLanguage(selectedCode);
+    router.replace("/index");
   };
 
   return (
@@ -130,7 +139,7 @@ export default function ChooseLanguageScreen() {
               key={language.code}
               language={language}
               isSelected={selectedCode === language.code}
-              onPress={() => setSelectedCode(language.code)}
+              onPress={() => setDraftCode(language.code)}
             />
           ))}
         </ScrollView>
